@@ -27,4 +27,20 @@ public class ClientHelper extends HelperBase {
         type(By.name("address"), clientData.getAddress());
         type(By.name("home"), clientData.getTelhome());
     }
+
+    public void selectClient() {
+        click(By.name("selected[]"));
+    }
+
+    public void modificationClient() {
+        click(By.xpath("//img[@alt='Edit']"));
+    }
+
+    public void submitClientModification() {
+        click(By.name("update"));
+    }
+
+    public void deleteClient() {
+        click(By.xpath("//input[@value='Delete']"));
+    }
 }
