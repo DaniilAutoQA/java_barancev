@@ -9,8 +9,9 @@ public class ClientData {
     private final String company;
     private final String address;
     private final String telhome;
+    private final String groupname;
 
-    public ClientData(String firstname, String middlename, String lastname, String nickname, String title, String company, String address, String telhome) {
+    public ClientData(String firstname, String middlename, String lastname, String nickname, String title, String company, String address, String telhome, String groupname) {
         this.firstname = firstname;
         this.middlename = middlename;
         this.lastname = lastname;
@@ -19,6 +20,7 @@ public class ClientData {
         this.company = company;
         this.address = address;
         this.telhome = telhome;
+        this.groupname = groupname;
     }
 
     public String getFirstname() {
@@ -51,5 +53,9 @@ public class ClientData {
 
     public String getTelhome() {
         return telhome;
+    }
+
+    public String getGroupname() {
+        return groupname;
     }
 }

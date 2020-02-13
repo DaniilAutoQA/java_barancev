@@ -10,7 +10,7 @@ public class ClientModificationTests extends TestBase  {
         app.getNavigationHelper().goToHomePage();
         app.getClientHelper().selectClient();
         app.getClientHelper().modificationClient();
-        app.getClientHelper().fillClientForm(new ClientData("Saha","Ivanov","Petrovi4", "Godzila", "Work","HH","Taganrof", "2314"));
+        app.getClientHelper().fillClientForm(new ClientData("Saha","Ivanov","Petrovi4", "Godzila", "Work","HH","Taganrof", "2314", null), false);
         app.getClientHelper().submitClientModification();
     }
 }
