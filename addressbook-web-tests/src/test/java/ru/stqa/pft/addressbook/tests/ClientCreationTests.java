@@ -9,9 +9,7 @@ public class ClientCreationTests extends TestBase {
 
     @Test
     public void testUntitledTestCase() {
-        app.getClientHelper().initClientCreation();
-        app.getClientHelper().fillClientForm(new ClientData("dast", "mast", "deep", "english", "learn", "englishPod", "London", "6214987651", "test1"), true);
-        app.getClientHelper().submitClientCreation();
+        app.getClientHelper().createClient(new ClientData("dast", "mast", "deep", "english", "learn", "englishPod", "London", "6214987651", "test1"), true);
 
     }
 

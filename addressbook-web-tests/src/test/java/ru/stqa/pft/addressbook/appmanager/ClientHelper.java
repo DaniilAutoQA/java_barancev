@@ -12,6 +12,7 @@ public class ClientHelper extends HelperBase {
     public ClientHelper(WebDriver driver){
         super(driver);
     }
+    private NavigationHelper navigationHelper = new NavigationHelper(driver);
 
     public void submitClientCreation() {
         click(By.xpath("(//input[@name='submit'])[2]"));
@@ -51,5 +52,16 @@ public class ClientHelper extends HelperBase {
 
     public void deleteClient() {
         click(By.xpath("//input[@value='Delete']"));
+    }
+    public void createClient(ClientData client, boolean b) {
+        initClientCreation();
+        fillClientForm(client,b);
+        submitClientCreation();
+        navigationHelper.goToHomePage();
+
+    }
+
+    public boolean isThereAClient() {
+        return isElementPresent(By.name("selected[]"));
     }
 }
