@@ -3,9 +3,14 @@ package ru.stqa.pft.addressbook.appmanager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ClientData;
+import ru.stqa.pft.addressbook.model.GroupData;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ClientHelper extends HelperBase {
 
@@ -38,8 +43,9 @@ public class ClientHelper extends HelperBase {
         }
     }
 
-    public void selectClient() {
-        click(By.name("selected[]"));
+    public void selectClient(int index) {
+        driver.findElements(By.name("selected[]")).get(index).click();
+
     }
 
     public void modificationClient() {
@@ -63,5 +69,29 @@ public class ClientHelper extends HelperBase {
 
     public boolean isThereAClient() {
         return isElementPresent(By.name("selected[]"));
+    }
+
+
+    public List<ClientData> getClientList() {
+        List<ClientData> group = new ArrayList<ClientData>();
+        List<WebElement> clientsList = driver.findElements(By.xpath("//table/tbody/tr[@name]"));
+        //List<WebElement> elements = driver.findElements(By.name("selected[]"));
+
+      //  for (WebElement elementF: elementsFirstName ) {
+
+          //  String firstName = elementF.getText();
+           //String lastName2 = elementF.findElement(By.cssSelector("td\[2\]")).getText();
+           // System.out.println(firstName);
+            for (WebElement element : clientsList) {
+                List <WebElement> contacts = element.findElements(By.tagName("td"));
+                String lastName = contacts.get(1).getText();
+                String firstName = contacts.get(2).getText();
+                int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
+
+                group.add(new ClientData(id, firstName, "Ivanov", lastName, "Godzila", "Work", "HH", "Taganrof", "2314", "test1"));
+
+               }
+
+        return group;
     }
 }

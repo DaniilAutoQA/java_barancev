@@ -69,8 +69,9 @@ public class GroupHelper extends HelperBase{
         List<WebElement> elements = driver.findElements(By.cssSelector("span.group"));
         for (WebElement element: elements ){
             String name = element.getText();
-            int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-            group.add(new GroupData(id, name,null,null));
+          //  System.out.println(name);
+          int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
+          group.add(new GroupData(id, name,null,null));
         }
         return group;
     }

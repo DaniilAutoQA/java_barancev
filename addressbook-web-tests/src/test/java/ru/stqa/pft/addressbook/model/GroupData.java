@@ -25,7 +25,12 @@ public class GroupData {
     public String getName() {
         return name;
     }
-
+    public String getHeader() {
+        return header;
+    }
+    public String getFooter() {
+        return footer;
+    }
     public int getId() { return id; }
 
     @Override
@@ -47,13 +52,7 @@ public class GroupData {
         this.id = id;
     }
 
-    public String getHeader() {
-        return header;
-    }
 
-    public String getFooter() {
-        return footer;
-    }
 
 
     @Override
