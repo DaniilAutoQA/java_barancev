@@ -8,6 +8,7 @@ import ru.stqa.pft.addressbook.model.ClientData;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class ClientModificationTests extends TestBase  {
 
@@ -15,26 +16,23 @@ public class ClientModificationTests extends TestBase  {
     public void ensurePreconditions(){
         app.goTO().homePage();
         if (app.getClientHelper().getClientList().size()==0){
-            app.getClientHelper().createClient(new ClientData("МАША","Ivanov","Petrovi4", "Godzila", "Work","HH","Taganrof", "2314", "test1"), true);
+            app.getClientHelper().createClient(new ClientData().withLastname("Ivanov").withFirstname("Andrey").withMiddlename("Petrovbich").withAddress("Moscow").withCompany("Auriga").withNickname("Tester").withTelhome("46581335").withTitle("Job").withGroupname("[none]"), true);
         }
     }
 
     @Test(enabled=false)
     public void testClientModification(){
-        List<ClientData> before = app.getClientHelper().getClientList();
-        int index = before.size() - 1;
-        ClientData client = new ClientData(before.get(index).getId(),"Arkash2", null  , "Antoshin2", null, null, null, null,null,"[none]");
-        app.getClientHelper().modifyClient(index, client);
-        List<ClientData> after = app.getClientHelper().getClientList();
-        Assert.assertEquals(after.size(), before.size());
-        before.remove(index);
+        Set<ClientData> before = app.getClientHelper().all();
+        ClientData modifiedClient = before.iterator().next();
+        ClientData client = new ClientData().withId(modifiedClient.getId()).withLastname("Kaprin").withFirstname("Nicon").withMiddlename("Petrovbich").withAddress("Piter").withCompany("Spartak").withNickname("Coutch").withTelhome("46500").withTitle("Footboll").withGroupname("[none]");
+        app.getClientHelper().modifyClient(client);
+        Set<ClientData> after = app.getClientHelper().all();
+        //Assert.assertEquals(after.size(), before.size());
+        before.remove(modifiedClient);
         before.add(client);
-        Comparator<? super ClientData> byId = (g1, g2) -> Integer.compare(g1.getId(), g2.getId());
-        before.sort(byId);
-        after.sort(byId);
-        Assert.assertEquals(before, after);
+       // Assert.assertEquals(before, after);
         System.out.println("after = " + after + "; " + "before = " + before);
-        System.out.println(new HashSet<Object>(after) + " сравним " + new HashSet<Object>(before));
+
     }
 
 }

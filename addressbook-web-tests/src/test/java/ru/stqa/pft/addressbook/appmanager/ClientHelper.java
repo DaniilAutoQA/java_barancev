@@ -8,7 +8,9 @@ import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ClientData;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class ClientHelper extends HelperBase {
 
@@ -45,6 +47,9 @@ public class ClientHelper extends HelperBase {
         driver.findElements(By.name("selected[]")).get(index).click();
 
     }
+    public void selectClientByid(int id) {
+        driver.findElement(By.cssSelector("input[id= '" + id + "']")).click();
+    }
 
     public void modificationClient() {
         click(By.xpath("//img[@alt='Edit']"));
@@ -64,8 +69,8 @@ public class ClientHelper extends HelperBase {
         navigationHelper.homePage();
 
     }
-    public void modifyClient(int index, ClientData client) {
-        selectClient(index);
+    public void modifyClient(ClientData client) {
+        selectClientByid(client.getId());
         modificationClient();
         fillClientForm((client), false);
         submitClientModification();
@@ -92,11 +97,22 @@ public class ClientHelper extends HelperBase {
                 String lastName = contacts.get(1).getText();
                 String firstName = contacts.get(2).getText();
                 int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-
-                group.add(new ClientData(id, firstName, "Ivanov", lastName, "Godzila", "Work", "HH", "Taganrof", "2314", "test1"));
+                group.add(new ClientData().withId(id).withFirstname(firstName).withLastname(lastName).withMiddlename("Godzila").withGroupname("[none]"));
 
                }
 
+        return group;
+    }
+    public Set<ClientData> all() {
+        Set<ClientData> group = new HashSet<ClientData>();
+        List<WebElement> clientsList = driver.findElements(By.xpath("//table/tbody/tr[@name]"));
+        for (WebElement element : clientsList) {
+            List <WebElement> contacts = element.findElements(By.tagName("td"));
+            String lastName = contacts.get(1).getText();
+            String firstName = contacts.get(2).getText();
+            int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
+            group.add(new ClientData().withId(id).withFirstname(firstName).withLastname(lastName).withMiddlename("Godzila").withGroupname("[none]"));
+        }
         return group;
     }
 }
