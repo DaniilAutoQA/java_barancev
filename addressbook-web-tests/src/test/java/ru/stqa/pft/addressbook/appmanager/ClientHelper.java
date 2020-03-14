@@ -6,6 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ClientData;
+import ru.stqa.pft.addressbook.model.Clients;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -103,9 +104,10 @@ public class ClientHelper extends HelperBase {
 
         return group;
     }
-    public Set<ClientData> all() {
-        Set<ClientData> group = new HashSet<ClientData>();
+    public Clients all() {
+        Clients group = new Clients();
         List<WebElement> clientsList = driver.findElements(By.xpath("//table/tbody/tr[@name]"));
+        //List<WebElement> clientsList = driver.findElements(By.name("entry"));
         for (WebElement element : clientsList) {
             List <WebElement> contacts = element.findElements(By.tagName("td"));
             String lastName = contacts.get(1).getText();

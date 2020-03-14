@@ -1,12 +1,19 @@
 package ru.stqa.pft.addressbook.tests;
 
+import org.hamcrest.CoreMatchers;
+import org.hamcrest.MatcherAssert;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import ru.stqa.pft.addressbook.appmanager.NavigationHelper;
 import ru.stqa.pft.addressbook.model.ClientData;
+import ru.stqa.pft.addressbook.model.Clients;
 
 import java.util.List;
 import java.util.Set;
+
+import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.MatcherAssert.*;
 
 public class ClientDeletionTests extends TestBase {
 
@@ -18,15 +25,15 @@ public class ClientDeletionTests extends TestBase {
         }
     }
 
-    @Test(enabled=false)
-    public void testClientDeletion() throws InterruptedException {
-        Set<ClientData> before = app.getClientHelper().all();
+    @Test(enabled=true)
+    public void testClientDeletion() {
+        Clients before = app.getClientHelper().all();
         ClientData deletedClient = before.iterator().next();
         app.getClientHelper().selectClientByid(deletedClient.getId());
         app.getClientHelper().deleteClient();
-        Set<ClientData> after = app.getClientHelper().all();
-        Assert.assertEquals(after.size(), before.size() - 1);
-        before.remove(deletedClient);
-        Assert.assertEquals(after, before);
+        app.goTO().switchTo();
+        Clients after = app.getClientHelper().all();
+        assertThat(after.size(), equalTo(before.size()-1));
+        assertThat(after, equalTo(before.withOut(deletedClient)));
     }
 }

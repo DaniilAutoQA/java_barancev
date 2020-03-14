@@ -46,9 +46,10 @@ public class ApplicationManager {
         navigationHelper = new NavigationHelper(driver);
         sessionHelper = new SessionHelper(driver);
         clientHelper = new ClientHelper(driver);
-        driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         driver.get("http://localhost:8080/addressbook");
         sessionHelper.login("admin", "secret");
+
     }
 
 

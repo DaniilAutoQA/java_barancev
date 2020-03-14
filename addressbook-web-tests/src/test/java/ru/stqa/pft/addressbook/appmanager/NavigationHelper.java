@@ -24,5 +24,9 @@ public class NavigationHelper extends HelperBase{
         }
         click(By.linkText("home"));
     }
+
+    public void switchTo(){
+        driver.switchTo().alert().accept();
+    }
 }
 
