@@ -36,6 +36,12 @@ public class ClientHelper extends HelperBase {
         type(By.name("company"), clientData.getCompany());
         type(By.name("address"), clientData.getAddress());
         type(By.name("home"), clientData.getTelhome());
+        type(By.name("work"),clientData.getTelwork());
+        type(By.name("mobile"),clientData.getMobile());
+        type(By.name("email"),clientData.getEmail());
+        type(By.name("email2"),clientData.getEmail2());
+        type(By.name("email3"),clientData.getEmail3());
+        attach(By.name("photo"),clientData.getPhoto());
 
         if (creation){
             new Select(driver.findElement(By.name("new_group"))).selectByVisibleText(clientData.getGroupname());
@@ -84,7 +90,7 @@ public class ClientHelper extends HelperBase {
 
 
     public List<ClientData> getClientList() {
-        List<ClientData> group = new ArrayList<ClientData>();
+        List<ClientData> client = new ArrayList<ClientData>();
         List<WebElement> clientsList = driver.findElements(By.xpath("//table/tbody/tr[@name]"));
         //List<WebElement> elements = driver.findElements(By.name("selected[]"));
 
@@ -98,23 +104,58 @@ public class ClientHelper extends HelperBase {
                 String lastName = contacts.get(1).getText();
                 String firstName = contacts.get(2).getText();
                 int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-                group.add(new ClientData().withId(id).withFirstname(firstName).withLastname(lastName).withMiddlename("Godzila").withGroupname("[none]"));
+                client.add(new ClientData().withId(id).withFirstname(firstName).withLastname(lastName).withMiddlename("Godzila").withGroupname("[none]"));
 
                }
 
-        return group;
+        return client;
     }
     public Clients all() {
-        Clients group = new Clients();
+        Clients client = new Clients();
         List<WebElement> clientsList = driver.findElements(By.xpath("//table/tbody/tr[@name]"));
         //List<WebElement> clientsList = driver.findElements(By.name("entry"));
         for (WebElement element : clientsList) {
             List <WebElement> contacts = element.findElements(By.tagName("td"));
             String lastName = contacts.get(1).getText();
             String firstName = contacts.get(2).getText();
+            String allEmails = contacts.get(4).getText();
+            String allPhones = contacts.get(5).getText();
+            //String [] phones = contacts.get(5).getText().split("\n");  //делим строку на части
             int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-            group.add(new ClientData().withId(id).withFirstname(firstName).withLastname(lastName).withMiddlename("Godzila").withGroupname("[none]"));
+            client.add(new ClientData().withId(id).withFirstname(firstName).withLastname(lastName).withMiddlename("Godzila").withGroupname("[none]").withAllEmails(allEmails).withAllPhones(allPhones));
         }
-        return group;
+        return client;
+    }
+
+    public ClientData infoFromEditForm(ClientData client){
+        initClientModificationByid(client.getId());
+        String firstname = driver.findElement(By.name("firstname")).getAttribute("value");
+        String lastname = driver.findElement(By.name("lastname")).getAttribute("value");
+        String home = driver.findElement(By.name("home")).getAttribute("value");
+        String mobile = driver.findElement(By.name("mobile")).getAttribute("value");
+        String work = driver.findElement(By.name("work")).getAttribute("value");
+        String email = driver.findElement(By.name("email")).getAttribute("value");
+        String email2 = driver.findElement(By.name("email2")).getAttribute("value");
+        String email3 = driver.findElement(By.name("email3")).getAttribute("value");
+        return new ClientData().withId(client.getId()).withFirstname(firstname).withLastname(lastname).withTelHome(home).withMobile(mobile).withTelWork(work).withEmail(email).withEmail2(email2).withEmail3(email3);
+
+    }
+
+    private void initClientModificationByid(int id) {
+
+        WebElement checkbox = driver.findElement(By.cssSelector(String.format("input[value='%s']", id)));
+        WebElement row = checkbox.findElement(By.xpath("./../.."));
+        List<WebElement> cells = row.findElements(By.tagName("td"));
+        cells.get(7).findElement(By.tagName("a")).click();
+
+        //or
+        //driver.findElement(By.xpath(String.format("//input[@value='$s']/../../td[8]/a", id))).click();
+        //driver.findElement(By.xpath(String.format("//tr[.//input[@value='%s']]/td[8]/a", id))).click();
+       //driver.findElement(By.cssSelector(String.format("a[href='edit.php?id=%s']", id))).click();
+    }
+
+
+    private void initClientDetailsByid(int id) {
+        driver.findElement(By.cssSelector(String.format("a[href='view.php?id=%s']", id))).click();
     }
 }

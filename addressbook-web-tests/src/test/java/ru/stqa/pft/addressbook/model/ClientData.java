@@ -1,5 +1,6 @@
 package ru.stqa.pft.addressbook.model;
 
+import java.io.File;
 import java.util.Objects;
 
 public class ClientData {
@@ -14,9 +15,26 @@ public class ClientData {
     private String telhome;
     private String groupname;
 
-    public String getFirstname() {
-        return firstname;
-    }
+
+    private String mobile;
+    private String telwork;
+    private String email;
+    private String email2;
+    private String email3;
+    private String allphones;
+    private String allEmails;
+    private File photo;
+
+
+    public String getEmail2() {return email2;}
+
+    public String getEmail3() {return email3;}
+
+    public String getAllEmails() {return allEmails;}
+
+    public String getAllphones() {return allphones;}
+
+    public String getFirstname() {return firstname;}
 
     public String getMiddlename() {return middlename;}
 
@@ -44,10 +62,22 @@ public class ClientData {
         return telhome;
     }
 
+    public String getMobile() {return mobile;}
+
+    public String getTelwork() {return telwork;}
+
+    public String getEmail() {return email;}
+
     public String getGroupname() {return groupname; }
 
     public int getId() {return id; }
 
+    public File getPhoto() {return photo; }
+
+    public ClientData withPhoto(File photo) {
+        this.photo = photo;
+        return this;
+    }
 
     public ClientData withId(int id) {
         this.id = id;
@@ -89,7 +119,7 @@ public class ClientData {
         return this;
     }
 
-    public ClientData withTelhome(String telhome) {
+    public ClientData withTelHome(String telhome) {
         this.telhome = telhome;
         return this;
     }
@@ -98,6 +128,39 @@ public class ClientData {
         this.groupname = groupname;
         return this;
     }
+
+    public ClientData withMobile(String mobile) {
+        this.mobile = mobile;
+        return this;
+    }
+    public ClientData withTelWork(String telwork) {
+        this.telwork = telwork;
+        return this;
+    }
+    public ClientData withEmail(String email) {
+        this.email = email;
+        return this;
+    }
+    public ClientData withEmail2(String email2) {
+        this.email2 = email2;
+        return this;
+    }
+    public ClientData withEmail3(String email3) {
+        this.email3 = email3;
+        return this;
+    }
+
+    public ClientData withAllPhones(String allphones) {
+        this.allphones = allphones;
+        return this;
+    }
+
+    public ClientData withAllEmails(String allEmails) {
+        this.allEmails = allEmails;
+        return this;
+    }
+
+
 
     @Override
     public boolean equals(Object o) {
@@ -129,4 +192,6 @@ public class ClientData {
                 ", groupname='" + groupname + '\'' +
                 '}';
     }
+
+
 }

@@ -1,16 +1,9 @@
 package ru.stqa.pft.addressbook.tests;
 
-import org.hamcrest.CoreMatchers;
-import org.hamcrest.MatcherAssert;
-import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import ru.stqa.pft.addressbook.appmanager.NavigationHelper;
 import ru.stqa.pft.addressbook.model.ClientData;
 import ru.stqa.pft.addressbook.model.Clients;
-
-import java.util.List;
-import java.util.Set;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.*;
@@ -21,7 +14,7 @@ public class ClientDeletionTests extends TestBase {
     public void ensurePreconditions(){
         app.goTO().homePage();
         if (app.getClientHelper().getClientList().size()==0){
-            app.getClientHelper().createClient(new ClientData().withLastname("Ivanov").withFirstname("Andrey").withMiddlename("Petrovbich").withAddress("Moscow").withCompany("Auriga").withNickname("Tester").withTelhome("46581335").withTitle("Job").withGroupname("[none]"), true);
+            app.getClientHelper().createClient(new ClientData().withLastname("Ivanov").withFirstname("Andrey").withMiddlename("Petrovbich").withAddress("Moscow").withCompany("Auriga").withNickname("Tester").withTelHome("46581335").withTitle("Job").withGroupname("[none]"), true);
         }
     }
 
