@@ -43,7 +43,9 @@ public class ContactDataGenerator {
     private List<ClientData> generateClients(int count) {
         List<ClientData> clients = new ArrayList<ClientData>();
         for(int i=0; i < count; i++){
-            clients.add(new ClientData().withFirstname(String.format("Firstname %s", i)).withLastname(String.format("Lastname %s", i)).withAddress(String.format("address %s", i)));
+            clients.add(new ClientData().withFirstname(String.format("Firstname %s", i)).withLastname(String.format("Lastname %s", i)).withMiddlename(String.format("Petrovbich%s", i)).withAddress(String.format("address %s", i))
+                    .withCompany(String.format("company %s", i)).withNickname(String.format("nickname %s", i)).withTelHome(String.format("4568652 %s", i)).withMobile(String.format("8919890 %s", i))
+                        .withTelWork(String.format("3495 %s", i)).withEmail(String.format("yandex@.ru %s", i)).withEmail2(String.format("mail@.ru %s", i)).withEmail3(String.format("google@.com %s", i)).withTitle(String.format("title %s", i)).withGroupname("[none]"));
         }
         return clients;
     }
@@ -52,7 +54,8 @@ public class ContactDataGenerator {
         System.out.println(new File(".").getAbsolutePath());
         Writer writer = new FileWriter(file);
         for (ClientData group : clients){
-            writer.write(String.format("%s;%s;%s\n", group.getFirstname(), group.getLastname(), group.getAddress()));
+            writer.write(String.format("%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s\n", group.getFirstname(), group.getLastname(), group.getMiddlename(), group.getAddress()
+                    ,group.getCompany(), group.getNickname(), group.getTelhome(), group.getMobile(), group.getTelwork(),group.getEmail(), group.getEmail2(), group.getEmail3(), group.getTitle(), group.getGroupname()));
         }
         writer.close();
     }
