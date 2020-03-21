@@ -1,0 +1,50 @@
+<list>
+  <client>
+    <firstname>Firstname 0</firstname>
+    <middlename>Petrovbich0</middlename>
+    <lastname>Lastname 0</lastname>
+    <nickname>nickname 0</nickname>
+    <title>title 0</title>
+    <company>company 0</company>
+    <address>address 0</address>
+    <telhome>4568652 0</telhome>
+    <groupname>[none]</groupname>
+    <mobile>8919890 0</mobile>
+    <telwork>3495 0</telwork>
+    <email>yandex@.ru 0</email>
+    <email2>mail@.ru 0</email2>
+    <email3>google@.com 0</email3>
+  </client>
+  <client>
+    <firstname>Firstname 1</firstname>
+    <middlename>Petrovbich1</middlename>
+    <lastname>Lastname 1</lastname>
+    <nickname>nickname 1</nickname>
+    <title>title 1</title>
+    <company>company 1</company>
+    <address>address 1</address>
+    <telhome>4568652 1</telhome>
+    <groupname>[none]</groupname>
+    <mobile>8919890 1</mobile>
+    <telwork>3495 1</telwork>
+    <email>yandex@.ru 1</email>
+    <email2>mail@.ru 1</email2>
+    <email3>google@.com 1</email3>
+  </client>
+  <client>
+    <firstname>Firstname 2</firstname>
+    <middlename>Petrovbich2</middlename>
+    <lastname>Lastname 2</lastname>
+    <nickname>nickname 2</nickname>
+    <title>title 2</title>
+    <company>company 2</company>
+    <address>address 2</address>
+    <telhome>4568652 2</telhome>
+    <groupname>[none]</groupname>
+    <mobile>8919890 2</mobile>
+    <telwork>3495 2</telwork>
+    <email>yandex@.ru 2</email>
+    <email2>mail@.ru 2</email2>
+    <email3>google@.com 2</email3>
+  </client>
+</list>

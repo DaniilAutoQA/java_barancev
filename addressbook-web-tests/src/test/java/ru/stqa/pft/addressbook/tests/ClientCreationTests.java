@@ -1,6 +1,9 @@
 package ru.stqa.pft.addressbook.tests;
 
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.thoughtworks.xstream.XStream;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ClientData;
@@ -14,6 +17,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -21,9 +25,8 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class ClientCreationTests extends TestBase {
 
     @DataProvider
-    public Iterator<Object[]> validGroups() throws IOException {
+    public Iterator<Object[]> validGroupsFromCsv() throws IOException {
         List<Object[]> list = new ArrayList<Object[]>();
-        //load data from file
         BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/clients.csv")));
         String line = reader.readLine();
         while (line != null){
@@ -33,11 +36,36 @@ public class ClientCreationTests extends TestBase {
             line = reader.readLine();
         }
         return list.iterator();
+        }
+    @DataProvider
+    public Iterator<Object[]> validGroupsFromXml() throws IOException {
+        BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/clients.xml")));
+        String xml = "";
+        String line = reader.readLine();
+        while (line != null){
+            xml += line;
+            line = reader.readLine();
+        }
+        XStream xStream = new XStream();
+        xStream.processAnnotations(ClientData.class);
+        List<ClientData> groups = (List<ClientData>) xStream.fromXML(xml);
+        return groups.stream().map((g) -> new Object[] {g}).collect(Collectors.toList()).iterator();
+    }
+    @DataProvider
+    public Iterator<Object[]> validGroupsFromJson() throws IOException {
+        BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/clients.json")));
+        String json = "";
+        String line = reader.readLine();
+        while (line != null){
+            json += line;
+            line = reader.readLine();
+        }
+        Gson gson = new Gson();
+        List<ClientData> groups = gson.fromJson(json, new TypeToken<List<ClientData>>(){}.getType());
+        return groups.stream().map((g) -> new Object[] {g}).collect(Collectors.toList()).iterator();
     }
 
-
-
-    @Test (dataProvider = "validGroups")
+    @Test (dataProvider = "validGroupsFromJson")
     public void testUntitledTestCase(ClientData client) {
         Clients before = app.getClientHelper().all();
         //File photo = new File("src/test/resources/file.jpg");

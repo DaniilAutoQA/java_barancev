@@ -1,0 +1,53 @@
+[
+  {
+    "id": 2147483647,
+    "firstname": "Firstname 0",
+    "middlename": "Petrovbich0",
+    "lastname": "Lastname 0",
+    "nickname": "nickname 0",
+    "title": "title 0",
+    "company": "company 0",
+    "address": "address 0",
+    "telhome": "4568652 0",
+    "groupname": "[none]",
+    "mobile": "8919890 0",
+    "telwork": "3495 0",
+    "email": "yandex@.ru 0",
+    "email2": "mail@.ru 0",
+    "email3": "google@.com 0"
+  },
+  {
+    "id": 2147483647,
+    "firstname": "Firstname 1",
+    "middlename": "Petrovbich1",
+    "lastname": "Lastname 1",
+    "nickname": "nickname 1",
+    "title": "title 1",
+    "company": "company 1",
+    "address": "address 1",
+    "telhome": "4568652 1",
+    "groupname": "[none]",
+    "mobile": "8919890 1",
+    "telwork": "3495 1",
+    "email": "yandex@.ru 1",
+    "email2": "mail@.ru 1",
+    "email3": "google@.com 1"
+  },
+  {
+    "id": 2147483647,
+    "firstname": "Firstname 2",
+    "middlename": "Petrovbich2",
+    "lastname": "Lastname 2",
+    "nickname": "nickname 2",
+    "title": "title 2",
+    "company": "company 2",
+    "address": "address 2",
+    "telhome": "4568652 2",
+    "groupname": "[none]",
+    "mobile": "8919890 2",
+    "telwork": "3495 2",
+    "email": "yandex@.ru 2",
+    "email2": "mail@.ru 2",
+    "email3": "google@.com 2"
+  }
+]

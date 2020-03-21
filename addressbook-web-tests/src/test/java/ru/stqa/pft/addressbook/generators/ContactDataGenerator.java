@@ -3,6 +3,9 @@ package ru.stqa.pft.addressbook.generators;
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.ParameterException;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.thoughtworks.xstream.XStream;
 import ru.stqa.pft.addressbook.model.ClientData;
 import ru.stqa.pft.addressbook.model.GroupData;
 
@@ -22,6 +25,9 @@ public class ContactDataGenerator {
     @Parameter (names = "-f", description = "Target file")
     public String file;
 
+    @Parameter (names = "-d", description = "Data format")
+    public String format;
+
     public static void main(String[] args) throws IOException {
         ContactDataGenerator generator = new ContactDataGenerator();
         JCommander jCommander = new JCommander(generator);
@@ -36,11 +42,21 @@ public class ContactDataGenerator {
 
     private void run() throws IOException {
         List<ClientData> clients = generateClients(count);
-        save(clients, new File(file));
+        if (format.equals("csv")){
+            saveAsCsv(clients, new File(file));
+        } else if (format.equals("xml")){
+            saveAsXml(clients, new File(file));
+        }
+        else if (format.equals("json")){
+            saveAsJson(clients, new File(file));
+        } else {
+            System.out.println("Unrecognized format" + format);
+        }
+
 
     }
 
-    private List<ClientData> generateClients(int count) {
+   private List<ClientData> generateClients(int count) {
         List<ClientData> clients = new ArrayList<ClientData>();
         for(int i=0; i < count; i++){
             clients.add(new ClientData().withFirstname(String.format("Firstname %s", i)).withLastname(String.format("Lastname %s", i)).withMiddlename(String.format("Petrovbich%s", i)).withAddress(String.format("address %s", i))
@@ -50,13 +66,31 @@ public class ContactDataGenerator {
         return clients;
     }
 
-    private void save(List<ClientData> clients, File file) throws IOException {
+    private void saveAsCsv(List<ClientData> clients, File file) throws IOException {
         System.out.println(new File(".").getAbsolutePath());
         Writer writer = new FileWriter(file);
         for (ClientData group : clients){
             writer.write(String.format("%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s\n", group.getFirstname(), group.getLastname(), group.getMiddlename(), group.getAddress()
                     ,group.getCompany(), group.getNickname(), group.getTelhome(), group.getMobile(), group.getTelwork(),group.getEmail(), group.getEmail2(), group.getEmail3(), group.getTitle(), group.getGroupname()));
         }
+        writer.close();
+    }
+
+    private void saveAsXml(List<ClientData> clients, File file) throws IOException {
+        XStream xStream = new XStream();
+        xStream.processAnnotations(ClientData.class);
+        String xml = xStream.toXML(clients);
+        Writer writer = new FileWriter(file);
+        writer.write(xml);
+        writer.close();
+
+    }
+
+    private void saveAsJson(List<ClientData> clients, File file) throws IOException {
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        String json = gson.toJson(clients);
+        Writer writer = new FileWriter(file);
+        writer.write(json);
         writer.close();
     }
 
