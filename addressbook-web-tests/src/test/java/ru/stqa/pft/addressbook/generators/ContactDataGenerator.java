@@ -68,30 +68,29 @@ public class ContactDataGenerator {
 
     private void saveAsCsv(List<ClientData> clients, File file) throws IOException {
         System.out.println(new File(".").getAbsolutePath());
-        Writer writer = new FileWriter(file);
-        for (ClientData group : clients){
-            writer.write(String.format("%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s\n", group.getFirstname(), group.getLastname(), group.getMiddlename(), group.getAddress()
-                    ,group.getCompany(), group.getNickname(), group.getTelhome(), group.getMobile(), group.getTelwork(),group.getEmail(), group.getEmail2(), group.getEmail3(), group.getTitle(), group.getGroupname()));
+        try(Writer writer = new FileWriter(file);){
+            for (ClientData group : clients){
+                writer.write(String.format("%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s\n", group.getFirstname(), group.getLastname(), group.getMiddlename(), group.getAddress()
+                        ,group.getCompany(), group.getNickname(), group.getTelhome(), group.getMobile(), group.getTelwork(),group.getEmail(), group.getEmail2(), group.getEmail3(), group.getTitle(), group.getGroupname()));
+            }
         }
-        writer.close();
     }
 
     private void saveAsXml(List<ClientData> clients, File file) throws IOException {
         XStream xStream = new XStream();
         xStream.processAnnotations(ClientData.class);
         String xml = xStream.toXML(clients);
-        Writer writer = new FileWriter(file);
-        writer.write(xml);
-        writer.close();
-
+        try(Writer writer = new FileWriter(file);){
+            writer.write(xml);
+        }
     }
 
     private void saveAsJson(List<ClientData> clients, File file) throws IOException {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         String json = gson.toJson(clients);
-        Writer writer = new FileWriter(file);
-        writer.write(json);
-        writer.close();
+        try(Writer writer = new FileWriter(file);) {
+            writer.write(json);
+        }
     }
 
 }

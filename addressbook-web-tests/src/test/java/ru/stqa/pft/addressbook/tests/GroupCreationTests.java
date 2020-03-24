@@ -6,6 +6,7 @@ import com.thoughtworks.xstream.XStream;
 import org.hamcrest.MatcherAssert;
 import org.testng.Assert;
 import org.testng.annotations.*;
+import org.testng.log4testng.Logger;
 import ru.stqa.pft.addressbook.model.GroupData;
 import ru.stqa.pft.addressbook.model.Groups;
 
@@ -44,20 +45,22 @@ public class GroupCreationTests extends TestBase {
 
   @DataProvider
   public Iterator<Object[]> validGroupsFromJson() throws IOException {
-      BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/groups.json")));
-      String json = "";
-      String line = reader.readLine();
-      while (line != null){
-          json += line;
-          line = reader.readLine();
+      try(BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/groups.json")));) {
+          String json = "";
+          String line = reader.readLine();
+          while (line != null){
+              json += line;
+              line = reader.readLine();
+          }
+          Gson gson = new Gson();
+          List<GroupData> groups = gson.fromJson(json, new TypeToken<List<GroupData>>(){}.getType());
+          return groups.stream().map((g) -> new Object[] {g}).collect(Collectors.toList()).iterator();
       }
-      Gson gson = new Gson();
-      List<GroupData> groups = gson.fromJson(json, new TypeToken<List<GroupData>>(){}.getType());
-      return groups.stream().map((g) -> new Object[] {g}).collect(Collectors.toList()).iterator();
-    }
+  }
 
   @Test (dataProvider = "validGroupsFromJson")
   public void testGroupCreation(GroupData group) throws Exception {
+      logger.info("start testGroupCreation test");
     //GroupData group = new GroupData().withName(name).withHeader(header).withFooter(footer);
     app.goTO().groupPage();
     Groups before = app.group().all();
@@ -65,6 +68,7 @@ public class GroupCreationTests extends TestBase {
     Groups after = app.group().all();
     assertThat(after.size(), equalTo(before.size() + 1));
     assertThat(after, equalTo(before.withAdded(group.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt()))));
+    logger.info("stop testGroupCreation test");
 
 
     //поиск максимального id

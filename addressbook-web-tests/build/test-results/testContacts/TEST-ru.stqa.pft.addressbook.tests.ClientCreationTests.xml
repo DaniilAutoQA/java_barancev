@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ru.stqa.pft.addressbook.tests.ClientCreationTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-03-24T09:53:30" hostname="pc" time="8.102">
+  <properties/>
+  <testcase name="testUntitledTestCase[0](ClientData{id=2147483647, firstname='Firstname 0', middlename='Petrovbich0', lastname='Lastname 0', nickname='nickname 0', title='title 0', company='company 0', address='address 0', telhome='4568652 0', groupname='[none]'})" classname="ru.stqa.pft.addressbook.tests.ClientCreationTests" time="8.102"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
