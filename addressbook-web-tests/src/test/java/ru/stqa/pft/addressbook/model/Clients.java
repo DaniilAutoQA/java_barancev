@@ -18,6 +18,8 @@ public class Clients extends ForwardingSet<ClientData>{
         this.delegate = new HashSet<ClientData>();
     }
 
+
+
     @Override
     protected Set<ClientData> delegate() {
         return delegate;

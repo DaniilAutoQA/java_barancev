@@ -22,10 +22,7 @@ public class GroupData {
     }
 
 
-    public String getHeader() {
-        return header;
-
-    }
+    public String getHeader() { return header; }
     public String getFooter() {
         return footer;
     }
